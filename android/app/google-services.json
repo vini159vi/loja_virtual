@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "579970008586",
+    "firebase_url": "https://chat-online-flutter-9adeb.firebaseio.com",
+    "project_id": "chat-online-flutter-9adeb",
+    "storage_bucket": "chat-online-flutter-9adeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579970008586:android:2b0b009593c84597",
+        "android_client_info": {
+          "package_name": "lellis.com.study.loja_virtual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579970008586-p4nvggul050dv6r9lb70nsm0rla32jp8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY-q8uXBeIipUnydaLCs9PAgDkLZ-fVcE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "579970008586-p4nvggul050dv6r9lb70nsm0rla32jp8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
