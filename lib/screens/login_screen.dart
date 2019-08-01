@@ -9,12 +9,16 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final _emailController = TextEditingController();
+  final _passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text("Entrar"),
         centerTitle: true,
@@ -46,6 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: EdgeInsets.all(16),
               children: <Widget>[
                 TextFormField(
+                  controller: _emailController,
                   validator: (text) {
                     if (text.isEmpty || !text.contains("@"))
                       return "E-mail inválido";
@@ -62,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 16,
                 ),
                 TextFormField(
+                  controller: _passController,
                   validator: (text) {
                     if (text.isEmpty || text.length < 6)
                       return "Senha inválida";
@@ -87,10 +93,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     textColor: Colors.white,
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
-
+                        model.signIn(
+                            email: _emailController.text,
+                            pass: _passController.text,
+                            onSuccess: _onSucess,
+                            onFail: _onFail);
                       }
 
-                      model.signIn();
                     },
                     color: Theme.of(context).primaryColor,
                   ),
@@ -98,7 +107,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_emailController.text.isEmpty) {
+                        _scaffoldKey.currentState.showSnackBar(SnackBar(
+                          content: Text("Insira seu e-mail para recuperação!"),
+                          backgroundColor: Colors.redAccent,
+                          duration: Duration(seconds: 2),
+                        ));
+                      } else {
+                        model.recoverPass(_emailController.text);
+                        _scaffoldKey.currentState.showSnackBar(SnackBar(
+                          content: Text("Confira seu e-mail"),
+                          backgroundColor: Theme.of(context).primaryColor,
+                          duration: Duration(seconds: 2),
+                        ));
+                      }
+                    },
                     child: Text(
                       "Esqueci minha senha",
                       textAlign: TextAlign.right,
@@ -112,5 +136,17 @@ class _LoginScreenState extends State<LoginScreen> {
         },
       ),
     );
+  }
+
+  void _onSucess() {
+    Navigator.of(context).pop();
+  }
+
+  void _onFail() {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text("Falha ao entrar!"),
+      backgroundColor: Colors.redAccent,
+      duration: Duration(seconds: 2),
+    ));
   }
 }

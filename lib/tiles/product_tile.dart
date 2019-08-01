@@ -31,6 +31,7 @@ class ProductTile extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             productData.title,
+                            maxLines: 1,
                             style: TextStyle(fontWeight: FontWeight.w500),
                           ),
                           Text(
